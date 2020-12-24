@@ -28,7 +28,7 @@ namespace BookingOfflineApp
             builder.Services.AddDASevices();
             builder.Services.AddCommonSevices(Configuration);
 
-            builder.Services.AddSingleton<IConfiguration>(Configuration);
+            builder.Services.AddSingleton(Configuration);
 
             if (string.Equals(Configuration.GetValue<string>("Migration"), "on", StringComparison.OrdinalIgnoreCase))
             {
@@ -38,7 +38,7 @@ namespace BookingOfflineApp
 
         private void EnsureLoadConfiguration()
         {
-            string connectionString = "Endpoint=https://mini-program-config-center.azconfig.io;Id=U6+c-lb-s0:NGYLK9lDl3WZiLHXhUCW;Secret=aMo02iBC+tGhPoIhR/MaxnbVDXHGu9KQ3zKtd7X2d3g=";// Environment.GetEnvironmentVariable("ConnectionString");
+            string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddAzureAppConfiguration(options =>
             {
