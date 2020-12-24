@@ -1,0 +1,16 @@
+﻿<policies>
+	<inbound>
+		<!--unprotected, comment base so not inherit jwt validation-->
+		<!--<base />-->
+		<set-backend-service id="apim-generated-policy" backend-id="yourfuncapp" />
+	</inbound>
+	<backend>
+		<base />
+	</backend>
+	<outbound>
+		<base />
+	</outbound>
+	<on-error>
+		<base />
+	</on-error>
+</policies>

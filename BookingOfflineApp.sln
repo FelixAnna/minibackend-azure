@@ -5,17 +5,29 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp", "BookingOfflineApp\BookingOfflineApp.csproj", "{53BD8E51-4FBF-44F8-8C4D-1390176531B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Common", "BookingOfflineApp.Common\BookingOfflineApp.Common.csproj", "{6E1E4699-8735-4873-AA4E-50D3C68D4507}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Common", "BookingOfflineApp.Common\BookingOfflineApp.Common.csproj", "{6E1E4699-8735-4873-AA4E-50D3C68D4507}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Entities", "BookingOfflineApp.Entities\BookingOfflineApp.Entities.csproj", "{4FC22056-BDEE-4B25-80A5-EE4EAE4FCD46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Entities", "BookingOfflineApp.Entities\BookingOfflineApp.Entities.csproj", "{4FC22056-BDEE-4B25-80A5-EE4EAE4FCD46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Repositories", "BookingOfflineApp.Repositories\BookingOfflineApp.Repositories.csproj", "{16CDF645-087C-47DD-81A9-D27F398BDB3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Repositories", "BookingOfflineApp.Repositories\BookingOfflineApp.Repositories.csproj", "{16CDF645-087C-47DD-81A9-D27F398BDB3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Repositories.SqlServer", "BookingOfflineApp.Repositories.SqlServer\BookingOfflineApp.Repositories.SqlServer.csproj", "{42FEB2BA-FF57-4CE4-A926-0526A0E0EFA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Repositories.SqlServer", "BookingOfflineApp.Repositories.SqlServer\BookingOfflineApp.Repositories.SqlServer.csproj", "{42FEB2BA-FF57-4CE4-A926-0526A0E0EFA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Services", "BookingOfflineApp.Services\BookingOfflineApp.Services.csproj", "{7745E59F-2C69-4D44-8577-6DD00E144416}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Services", "BookingOfflineApp.Services\BookingOfflineApp.Services.csproj", "{7745E59F-2C69-4D44-8577-6DD00E144416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Services.Tests", "BookingOfflineApp.Services.Tests\BookingOfflineApp.Services.Tests.csproj", "{037AED31-0946-4F41-9084-87828AB5B275}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Services.Tests", "BookingOfflineApp.Services.Tests\BookingOfflineApp.Services.Tests.csproj", "{037AED31-0946-4F41-9084-87828AB5B275}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{714A6A6E-34E8-47A6-9501-96FCFF69086C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure", "azure", "{48D7B9D3-8336-48D4-8B04-AD973F89C069}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{671D9A92-DEAE-48ED-AE19-1AD503A8AE46}"
+	ProjectSection(SolutionItems) = preProject
+		protected.xml = protected.xml
+		unprotected.xml = unprotected.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api-gateway", "api-gateway", "{747A2C77-2565-4E78-B54D-BF7734530A58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +66,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{48D7B9D3-8336-48D4-8B04-AD973F89C069} = {714A6A6E-34E8-47A6-9501-96FCFF69086C}
+		{671D9A92-DEAE-48ED-AE19-1AD503A8AE46} = {747A2C77-2565-4E78-B54D-BF7734530A58}
+		{747A2C77-2565-4E78-B54D-BF7734530A58} = {48D7B9D3-8336-48D4-8B04-AD973F89C069}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {311C33FA-5CFE-4DFA-9310-3D22EDCCBCAA}

@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingOfflineApp
@@ -34,7 +35,6 @@ namespace BookingOfflineApp
             return new OkObjectResult(new { State = "succeed" });
         }
 
-#if DEBUG
         [FunctionName("TestGetFakeToken")]
         public IActionResult TestGetFakeToken(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/token")] HttpRequest req,
@@ -51,6 +51,26 @@ namespace BookingOfflineApp
 
             return new OkObjectResult(new { token = tokenStr });
         }
-#endif
+
+        [FunctionName("TestParseToken")]
+        public IActionResult TestParseToken(
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/token/parse")] HttpRequest req,
+            ILogger log)
+        {
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("header parameters:");
+            foreach (var key in req.Headers.Keys)
+            {
+                result.AppendLine($"{key}:{req.Headers[key]}");
+            }
+
+            result.AppendLine("query parameters:");
+            foreach (var key in req.Query.Keys)
+            {
+                result.AppendLine($"{key}:{req.Query[key]}");
+            }
+            
+            return new OkObjectResult(new { Header = result.ToString() });
+        }
     }
 }
