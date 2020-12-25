@@ -24,7 +24,7 @@ namespace BookingOfflineApp.Functions.OrderItem
 
         [FunctionName("CreateOrderItem")]
         public async Task<IActionResult> CreateOrderItem(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/items")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "order-items")] HttpRequest req)
         {
             var userId = req.Query["userId"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -36,9 +36,8 @@ namespace BookingOfflineApp.Functions.OrderItem
 
         [FunctionName("RemoveOrderItem")]
         public IActionResult RemoveOrderItem(
-            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "orders/items")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "order-items/{orderItemId}")] HttpRequest req, int orderItemId)
         {
-            var orderItemId = int.Parse(req.Query["orderItemId"]);
             var userId = req.Query["userId"];
 
             if(_service.RemoveOrderItem(orderItemId, userId))

@@ -24,11 +24,6 @@ namespace BookingOfflineApp.Functions.Order
             this._log = log;
         }
 
-        private bool isAlipayUser(HttpRequest req)
-        {
-            return req.Query.ContainsKey("alibabaUserId");
-        }
-
         /// <summary>
         /// Create a new order (with no orderItem)
         /// </summary>
@@ -60,9 +55,8 @@ namespace BookingOfflineApp.Functions.Order
         /// <param name="model"></param>
         /// <returns></returns>
         [FunctionName("UpdateOrder")]
-        public async Task<ActionResult> UpdateOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/options")] HttpRequest req)
+        public async Task<ActionResult> UpdateOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/{orderId}")] HttpRequest req, int orderId)
         {
-            int Id = int.Parse(req.Query["id"]);
             var userId = req.Query["userId"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -70,11 +64,11 @@ namespace BookingOfflineApp.Functions.Order
             OrderResultModel order; 
             if (isAlipayUser(req))
             {
-                order = await _service.UpdateOrderAsync<AlipayUser>(Id, userId, model);
+                order = await _service.UpdateOrderAsync<AlipayUser>(orderId, userId, model);
             }
             else
             {
-                order = await _service.UpdateOrderAsync<WechatUser>(Id, userId, model);
+                order = await _service.UpdateOrderAsync<WechatUser>(orderId, userId, model);
             }
 
             if (order == null)
@@ -91,9 +85,8 @@ namespace BookingOfflineApp.Functions.Order
         /// <param name="orderId"></param>
         /// <returns></returns>
         [FunctionName("RemoveOrder")]
-        public ActionResult RemoveOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/remove")] HttpRequest req)               
+        public ActionResult RemoveOrder([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "orders/{orderId}")] HttpRequest req, int orderId)               
         {
-            int orderId = int.Parse(req.Query["orderId"]);
             var userId = req.Query["userId"];
             if(_service.RemoveOrder(orderId, userId))
             {
@@ -109,9 +102,8 @@ namespace BookingOfflineApp.Functions.Order
         /// <param name="orderId"></param>
         /// <returns></returns>
         [FunctionName("LockOrder")]
-        public async Task<ActionResult> LockOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/lock")] HttpRequest req)
+        public async Task<ActionResult> LockOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/{orderId}/lock")] HttpRequest req, int orderId)
         {
-            int orderId = int.Parse(req.Query["orderId"]);
             var userId = req.Query["userId"];
             if(await _service.LockOrderAsync(orderId, userId))
             {
@@ -126,9 +118,8 @@ namespace BookingOfflineApp.Functions.Order
         /// <param name="orderId"></param>
         /// <returns></returns>
         [FunctionName("UnlockOrder")]
-        public async Task<ActionResult> UnlockOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/unlock")] HttpRequest req)
+        public async Task<ActionResult> UnlockOrder([HttpTrigger(AuthorizationLevel.Function, "post", Route = "orders/{orderId}/unlock")] HttpRequest req, int orderId)
         {
-            int orderId = int.Parse(req.Query["orderId"]);
             var userId = req.Query["userId"];
 
             await _service.UnlockOrderAsync(orderId, userId);
@@ -141,9 +132,8 @@ namespace BookingOfflineApp.Functions.Order
         /// <param name="orderId"></param>
         /// <returns></returns>
         [FunctionName("GetOrder")]
-        public ActionResult GetOrder([HttpTrigger(AuthorizationLevel.Function, "get", Route = "orders")] HttpRequest req)
+        public ActionResult GetOrder([HttpTrigger(AuthorizationLevel.Function, "get", Route = "orders/{orderId}")] HttpRequest req, int orderId)
         {
-            int orderId = int.Parse(req.Query["orderId"]);
             OrderResultModel order;
             if (isAlipayUser(req))
             {
@@ -198,6 +188,11 @@ namespace BookingOfflineApp.Functions.Order
             }
 
             return new NotFoundResult();
+        }
+
+        private bool isAlipayUser(HttpRequest req)
+        {
+            return req.Query.ContainsKey("alibabaUserId");
         }
     }
 }

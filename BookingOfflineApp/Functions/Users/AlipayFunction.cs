@@ -46,7 +46,7 @@ namespace BookingOfflineApp.Users
 
         [FunctionName("GetAlipayUserInfo")]
         public IActionResult GetAlipayUserInfo(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "alipay/info")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "users/alipay/info")] HttpRequest req)
         {
             var userId = req.Query["userId"];
             var user = _userService.GetAlipayUserInfo(userId);
@@ -77,7 +77,7 @@ namespace BookingOfflineApp.Users
 
         [FunctionName("GetWechatUserInfo")]
         public IActionResult GetWechatUserInfo(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "wechat/info")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "users/wechat/info")] HttpRequest req)
         {
             var userId = req.Query["userId"];
             var user = _userService.GetWechatUserInfo(userId);
