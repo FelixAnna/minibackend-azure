@@ -16,9 +16,9 @@ namespace BookingOfflineApp.Functions.Order
     public class OrderFunction
     {
         private readonly IOrderService _service;
-        private readonly ILogger _log;
+        private readonly ILogger<OrderFunction> _log;
 
-        public OrderFunction(IOrderService service, ILogger log)
+        public OrderFunction(IOrderService service, ILogger<OrderFunction> log)
         {
             this._service = service;
             this._log = log;
@@ -153,7 +153,7 @@ namespace BookingOfflineApp.Functions.Order
         }
 
         [FunctionName("GetOrders")]
-        public ActionResult GetOrders([HttpTrigger(AuthorizationLevel.Function, "get", Route = "orders/list")] HttpRequest req)
+        public ActionResult GetOrders([HttpTrigger(AuthorizationLevel.Function, "get", Route = "orders")] HttpRequest req)
         {
             int.TryParse(req.Query["page"], out int page);
             int.TryParse(req.Query["size"], out int size);

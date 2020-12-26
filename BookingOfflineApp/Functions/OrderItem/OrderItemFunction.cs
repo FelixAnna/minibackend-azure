@@ -14,9 +14,9 @@ namespace BookingOfflineApp.Functions.OrderItem
     public class OrderItemFunction
     {
         private readonly IOrderItemService _service;
-        private readonly ILogger _log;
+        private readonly ILogger<OrderItemFunction> _log;
 
-        public OrderItemFunction(IOrderItemService service, ILogger log)
+        public OrderItemFunction(IOrderItemService service, ILogger<OrderItemFunction> log)
         {
             this._service = service;
             this._log = log;

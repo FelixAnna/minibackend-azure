@@ -14,31 +14,30 @@ namespace BookingOfflineApp
     public class TestFunction
     {
         private readonly ITokenGeneratorService _tokenService;
-        public TestFunction(ITokenGeneratorService tokenService)
+        private readonly ILogger<TestFunction> _log;
+        public TestFunction(ITokenGeneratorService tokenService, ILogger<TestFunction> log)
         {
             this._tokenService = tokenService;
+            this._log = log;
         }
 
         [FunctionName("TestRunning")]
         public IActionResult TestRunning(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/running")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "test/running")] HttpRequest req)
         {
             return new OkObjectResult(new { State = "succeed" });
         }
 
         [FunctionName("TestProtected")]
         public IActionResult TestProtected(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/protected")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/protected")] HttpRequest req)
         {
             return new OkObjectResult(new { State = "succeed" });
         }
 
         [FunctionName("TestGetFakeToken")]
         public IActionResult TestGetFakeToken(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/token")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/token")] HttpRequest req)
         {
             // authentication successful so generate jwt token
             var tokenStr = _tokenService.CreateJwtToken(new AlipayUser()
@@ -54,8 +53,7 @@ namespace BookingOfflineApp
 
         [FunctionName("TestParseToken")]
         public IActionResult TestParseToken(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/token/parse")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "test/token/parse")] HttpRequest req)
         {
             StringBuilder result = new StringBuilder();
             result.AppendLine("header parameters:");

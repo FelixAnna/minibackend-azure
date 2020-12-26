@@ -14,9 +14,9 @@ namespace BookingOfflineApp.Users
     public class AlipayFunction
     {
         private readonly IUserService _userService;
-        private readonly ILogger _log;
+        private readonly ILogger<AlipayFunction> _log;
 
-        public AlipayFunction(IUserService userService, ILogger log)
+        public AlipayFunction(IUserService userService, ILogger<AlipayFunction> log)
         {
             this._userService = userService;
             this._log = log;
