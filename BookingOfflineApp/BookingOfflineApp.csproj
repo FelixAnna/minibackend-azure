@@ -4,12 +4,15 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
 	<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
 	<UserSecretsId>ebe7073a-d62f-42a3-b405-c9d96bb6854f</UserSecretsId>
+	<DockerFastModeProjectMountDirectory>/home/site/wwwroot</DockerFastModeProjectMountDirectory>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="4.1.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookingOfflineApp.Services\BookingOfflineApp.Services.csproj" />
