@@ -1,3 +1,4 @@
+using Azure.Identity;
 using BookingOfflineApp.Repositories.SqlServer;
 using BookingOfflineApp.Web.Configurations;
 using BookingOfflineApp.Web.Middlewares;
@@ -51,6 +52,10 @@ namespace BookingOfflineApp.Web
                 options.Connect(connectionString)
                     .Select(KeyFilter.Any, LabelFilter.Null)
                     .Select(KeyFilter.Any, "prod")
+                    .ConfigureKeyVault(kv =>
+                    {
+                        kv.SetCredential(new DefaultAzureCredential());
+                    })
                          //stop refresher if we use free tier
                          /*.ConfigureRefresh(refreshOptions =>
                               refreshOptions.Register("TestApp:Settings:Message")

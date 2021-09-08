@@ -12,24 +12,20 @@ namespace BookingOfflineApp.Web.Configurations
         public static void AddJwtAutentication(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddAuthentication(option =>
-            {
-                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-            }).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = false,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration.GetValue<string>("JwtToken:Issuer"),
-                    ValidAudience = configuration.GetValue<string>("JwtToken:Audience"),
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtToken:SecretKey"]))
-                };
-            });
+                    var key = Encoding.ASCII.GetBytes(configuration["JwtToken:SecretKey"]);
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration.GetValue<string>("JwtToken:Issuer"),
+                        ValidAudience = configuration.GetValue<string>("JwtToken:Audience"),
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    };
+                });
 
         }
 

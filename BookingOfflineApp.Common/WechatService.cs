@@ -11,8 +11,8 @@ namespace BookingOfflineApp.Common
             this.secret = secret;
             this.appId = appId;
         }
-        private string secret;
-        private string appId;
+        private readonly string secret;
+        private readonly string appId;
 
         public async Task<WechatLoginResultModel> GetUserIdByCode(string authCode)
         {

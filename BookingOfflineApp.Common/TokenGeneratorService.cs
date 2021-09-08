@@ -34,10 +34,13 @@ namespace BookingOfflineApp.Common
                     new Claim("bf:alipayUserId", alipayUser.AlipayUserId)
                 }),
                 Expires = DateTime.UtcNow.AddHours(_expiresIn),
+                Issuer = _configuration.GetValue<string>("JwtToken:Issuer"),
+                Audience = _configuration.GetValue<string>("JwtToken:Audience"),
+                
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 
@@ -53,10 +56,11 @@ namespace BookingOfflineApp.Common
                     new Claim("bf:openId", wechatUser.OpenId)
                 }),
                 Expires = DateTime.UtcNow.AddHours(_expiresIn),
+                Issuer = _configuration.GetValue<string>("JwtToken:Issuer"),
+                Audience = _configuration.GetValue<string>("JwtToken:Audience"),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
             return tokenHandler.WriteToken(token);
         }
     }
