@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{67
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api-gateway", "api-gateway", "{747A2C77-2565-4E78-B54D-BF7734530A58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingOfflineApp.Web", "BookingOfflineAPI\BookingOfflineApp.Web.csproj", "{80228301-BAD1-4CEB-ADF6-A466B314297B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Web", "BookingOfflineAPI\BookingOfflineApp.Web.csproj", "{80228301-BAD1-4CEB-ADF6-A466B314297B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
