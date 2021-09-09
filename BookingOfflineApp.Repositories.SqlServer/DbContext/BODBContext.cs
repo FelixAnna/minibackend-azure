@@ -27,6 +27,9 @@ namespace BookingOfflineApp.Repositories.SqlServer
                 .WithOne(s => s.OrderItem)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(s => s.Price).HasColumnType("decimal");
         }
     }
 }
