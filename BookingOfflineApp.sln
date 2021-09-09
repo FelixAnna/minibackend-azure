@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp", "BookingOfflineApp\BookingOfflineApp.csproj", "{53BD8E51-4FBF-44F8-8C4D-1390176531B3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Common", "BookingOfflineApp.Common\BookingOfflineApp.Common.csproj", "{6E1E4699-8735-4873-AA4E-50D3C68D4507}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Entities", "BookingOfflineApp.Entities\BookingOfflineApp.Entities.csproj", "{4FC22056-BDEE-4B25-80A5-EE4EAE4FCD46}"
@@ -37,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53BD8E51-4FBF-44F8-8C4D-1390176531B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53BD8E51-4FBF-44F8-8C4D-1390176531B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53BD8E51-4FBF-44F8-8C4D-1390176531B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53BD8E51-4FBF-44F8-8C4D-1390176531B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E1E4699-8735-4873-AA4E-50D3C68D4507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6E1E4699-8735-4873-AA4E-50D3C68D4507}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E1E4699-8735-4873-AA4E-50D3C68D4507}.Release|Any CPU.ActiveCfg = Release|Any CPU
