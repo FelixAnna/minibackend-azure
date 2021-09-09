@@ -36,7 +36,7 @@ namespace BookingOfflineApp.Common
                 Expires = DateTime.UtcNow.AddHours(_expiresIn),
                 Issuer = _configuration.GetValue<string>("JwtToken:Issuer"),
                 Audience = _configuration.GetValue<string>("JwtToken:Audience"),
-                
+
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

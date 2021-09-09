@@ -56,11 +56,11 @@ namespace BookingOfflineApp.Web
                     {
                         kv.SetCredential(new DefaultAzureCredential());
                     })
-                         //stop refresher if we use free tier
-                         /*.ConfigureRefresh(refreshOptions =>
-                              refreshOptions.Register("TestApp:Settings:Message")
-                                            .SetCacheExpiration(TimeSpan.FromSeconds(60))
-                          )*/;
+                          //stop refresher if we use free tier
+                          /*.ConfigureRefresh(refreshOptions =>
+                               refreshOptions.Register("TestApp:Settings:Message")
+                                             .SetCacheExpiration(TimeSpan.FromSeconds(60))
+                           )*/;
                 ConfigurationRefresher = options.GetRefresher();
             });
 

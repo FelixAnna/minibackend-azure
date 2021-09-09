@@ -1,9 +1,4 @@
-﻿using BookingOfflineApp.Common;
-using BookingOfflineApp.Entities;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace BookingOfflineApp.Web.Middlewares
@@ -18,7 +13,7 @@ namespace BookingOfflineApp.Web.Middlewares
 
         public async Task Invoke(HttpContext httpContext)
         {
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlNWIxYmRmMi1hNzk5LTQ4M2YtODcxNy1jYzQzODkyOTU0MDQiLCJiZjphbGliYWJhVXNlcklkIjoiMjA4ODAwMjYzODM4MDg0MCIsImJmOmFsaXBheVVzZXJJZCI6IjIwODgxMDY5NTIxNzYxNTI5NzMwNTE0ODAyMDE4NDg0IiwibmJmIjoxNTg1NzUxNDUwLCJleHAiOjE1ODYzNTYyNTAsImlhdCI6MTU4NTc1MTQ1MH0.-uUq2qBJtgiAPrAJpupNTBSsv6K0CwD4kTU7rEfcCXQ";
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJ5dWZlbGl4IiwiYmY6YWxpYmFiYVVzZXJJZCI6IjEyMzRhIiwiYmY6YWxpcGF5VXNlcklkIjoiMTIzNDU2YWJjIiwibmJmIjoxNjMxMTYwNzc4LCJleHAiOjE2MzE0MTk5NzgsImlhdCI6MTYzMTE2MDc3OH0.J7d9CFSPf-ek5UWMkWD_ecy_oHiVyUj-d7hfKRm1V-U";
             httpContext.Request.Headers.Add("Authorization", "Bearer " + token);
             await _next(httpContext);
 
