@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
 	<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
 	<UserSecretsId>ebe7073a-d62f-42a3-b405-c9d96bb6854f</UserSecretsId>
