@@ -27,7 +27,13 @@ namespace BookingOfflineApp.Web
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<BODBContext>(options =>
-                options.UseSqlServer(Configuration.GetValue<string>("BODatabase")));
+                options.UseSqlServer(Configuration.GetValue<string>("BODatabase"), sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 10,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null);
+                }));
 
             services.AddSwaggerUI();
             services.AddJwtAutentication(Configuration);
@@ -37,6 +43,8 @@ namespace BookingOfflineApp.Web
             services.AddCommonSevices(Configuration);
 
             services.AddSingleton(Configuration);
+
+            services.AddHealthChecks();
 
             if (string.Equals(Configuration.GetValue<string>("Migration"), "on", StringComparison.OrdinalIgnoreCase))
             {
@@ -89,6 +97,7 @@ namespace BookingOfflineApp.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("healthcheck");
                 endpoints.MapControllers();
             });
         }
