@@ -86,16 +86,20 @@ namespace BookingOfflineApp.Services
             relatedUserIds.Add(order.CreatedBy);
             if (relatedUserIds.Any())
             {
-                if (typeof(T) == typeof(AlipayUser))
-                {
-                    var users = _userRepository.FindAll(relatedUserIds.ToArray()).ToList();
-                    result = OrderResultModel.FromOrder(order, users.ToArray());
-                }
-                else
-                {
-                    var users = _weUserRepository.FindAll(relatedUserIds.ToArray()).ToList();
-                    result = OrderResultModel.FromOrder(order, users.ToArray());
-                }
+                var alipayUsers = _userRepository.FindAll(relatedUserIds.ToArray()).ToList(); 
+                var wechatUsers = _weUserRepository.FindAll(relatedUserIds.ToArray()).ToList();
+                result = OrderResultModel.FromOrder(order, wechatUsers.ToArray(), alipayUsers.ToArray());
+
+                //if (typeof(T) == typeof(AlipayUser))
+                //{
+                //    var users = _userRepository.FindAll(relatedUserIds.ToArray()).ToList();
+                //    result = OrderResultModel.FromOrder(order, users.ToArray());
+                //}
+                //else
+                //{
+                //    var users = _weUserRepository.FindAll(relatedUserIds.ToArray()).ToList();
+                //    result = OrderResultModel.FromOrder(order, users.ToArray());
+                //}
             }
             else
             {
@@ -125,28 +129,18 @@ namespace BookingOfflineApp.Services
             OrderCollectionResultModel results;
             if (relatedUserIds.Any())
             {
-                if (typeof(T) == typeof(AlipayUser))
+                var alipayUsers = _userRepository.FindAll(relatedUserIds.ToArray()).ToList();
+                var wechatUsers = _weUserRepository.FindAll(relatedUserIds.ToArray()).ToList();
+
+                results = new OrderCollectionResultModel()
                 {
-                    var users = _userRepository.FindAll(relatedUserIds.ToArray()).ToList();
-                    results = new OrderCollectionResultModel()
-                    {
-                        TotalCount = orders.Count(),
-                        Orders = (from od in returnedOrders
-                                  let us = users.FirstOrDefault(u => u.Id == od.CreatedBy)
-                                  select OrderCollectionItem.ToOrderCollectionItem(od, us)).OrderByDescending(x => x.CreatedAt).ToList()
-                    };
-                }
-                else
-                {
-                    var users = _weUserRepository.FindAll(relatedUserIds.ToArray()).ToList();
-                    results = new OrderCollectionResultModel()
-                    {
-                        TotalCount = orders.Count(),
-                        Orders = (from od in returnedOrders
-                                  let us = users.FirstOrDefault(u => u.Id == od.CreatedBy)
-                                  select OrderCollectionItem.ToOrderCollectionItem(od, us)).OrderByDescending(x => x.CreatedAt).ToList()
-                    };
-                }
+                    TotalCount = orders.Count(),
+                    Orders = (from od in returnedOrders
+                              let wechatUs = wechatUsers.FirstOrDefault(u => u.Id == od.CreatedBy)
+                              let alipayUs = alipayUsers.FirstOrDefault(u => u.Id == od.CreatedBy)
+                              select OrderCollectionItem.ToOrderCollectionItem(od, wechatUs, alipayUs)).OrderByDescending(x => x.CreatedAt).ToList()
+                };
+
             }
             else
             {
@@ -154,8 +148,7 @@ namespace BookingOfflineApp.Services
                 {
                     TotalCount = orders.Count(),
                     Orders = (from od in returnedOrders
-                              let us = (AlipayUser)null
-                              select OrderCollectionItem.ToOrderCollectionItem(od, us)).OrderByDescending(x => x.CreatedAt).ToList()
+                              select OrderCollectionItem.ToOrderCollectionItem(od, null, null)).OrderByDescending(x => x.CreatedAt).ToList()
                 };
             }
 

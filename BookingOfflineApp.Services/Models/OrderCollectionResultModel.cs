@@ -33,11 +33,26 @@ namespace BookingOfflineApp.Services.Models
                 OrderId = order.OrderId,
                 State = order.State,
                 TotalItems = order.OrderItems?.Count ?? 0,
-                TotalCost = order.OrderItems?.Sum(x=>x.Price) ?? 0,
+                TotalCost = order.OrderItems?.Sum(x => x.Price) ?? 0,
                 CreatedAt = order.CreatedAt.ToUniversalTime(),
                 OwnerId = order.CreatedBy,
                 OwnerName = user?.AlipayName,
-                OwnerAvatar=user?.AlipayPhoto
+                OwnerAvatar = user?.AlipayPhoto
+            };
+        }
+
+        public static OrderCollectionItem ToOrderCollectionItem(Order order, WechatUser wechatUser, AlipayUser alipayUser)
+        {
+            return new OrderCollectionItem()
+            {
+                OrderId = order.OrderId,
+                State = order.State,
+                TotalItems = order.OrderItems?.Count ?? 0,
+                TotalCost = order.OrderItems?.Sum(x=>x.Price) ?? 0,
+                CreatedAt = order.CreatedAt.ToUniversalTime(),
+                OwnerId = order.CreatedBy,
+                OwnerName = wechatUser?.NickName??alipayUser?.AlipayName,
+                OwnerAvatar= wechatUser?.AvatarUrl??alipayUser?.AlipayPhoto
             };
         }
 
