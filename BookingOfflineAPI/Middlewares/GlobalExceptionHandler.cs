@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace BookingOfflineApp.Web.Middlewares
@@ -68,8 +67,8 @@ namespace BookingOfflineApp.Web.Middlewares
 
         private static Task HandleExceptionAsync(HttpContext context, int statusCode, string msg)
         {
-            var data = new { code = statusCode.ToString(), is_success = false, msg = msg };
-            var result = JsonConvert.SerializeObject(new { data = data });
+            var data = new { code = statusCode.ToString(), is_success = false, msg };
+            var result = JsonConvert.SerializeObject(new { data });
             context.Response.ContentType = "application/json;charset=utf-8";
             return context.Response.WriteAsync(result);
         }

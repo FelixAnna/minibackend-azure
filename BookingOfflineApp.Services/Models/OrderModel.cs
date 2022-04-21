@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BookingOfflineApp.Services.Models
 {
@@ -11,7 +9,6 @@ namespace BookingOfflineApp.Services.Models
 
     public class OrderOptionModel
     {
-        //{id: 1, name: '加饭', type:'bool', default: false, order: 1},
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

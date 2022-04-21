@@ -12,9 +12,9 @@ namespace BookingOfflineApp.Common
             this.alipayPublicKey = publicKey;
             this.appId = appId;
         }
-        private string privateKey;
-        private string alipayPublicKey;
-        private string appId;
+        private readonly string privateKey;
+        private readonly string alipayPublicKey;
+        private readonly string appId;
         public AlipaySystemOauthTokenResponse GetUserIdByCode(string authCode)
         {
             IAopClient client = new DefaultAopClient(
@@ -25,7 +25,7 @@ namespace BookingOfflineApp.Common
                 alipayPublicKey,
                 "utf-8",
                 false);
-            AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest
+            AlipaySystemOauthTokenRequest request = new()
             {
                 GrantType = "authorization_code",
                 Code = authCode

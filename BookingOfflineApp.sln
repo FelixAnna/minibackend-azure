@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Common", "BookingOfflineApp.Common\BookingOfflineApp.Common.csproj", "{6E1E4699-8735-4873-AA4E-50D3C68D4507}"
 EndProject
@@ -33,7 +33,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingOfflineApp.Grpc.Auth.Service", "grpc\BookingOfflineApp.Grpc.Auth.Service\BookingOfflineApp.Grpc.Auth.Service.csproj", "{7AD348A4-66CC-4939-9ADC-124A73A97789}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BOTestApi", "poc\BOTestApi\BOTestApi\BOTestApi.csproj", "{8A2E5EDD-3C0E-4993-A4FF-65B4612CA648}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BOTestApi", "poc\BOTestApi\BOTestApi\BOTestApi.csproj", "{8A2E5EDD-3C0E-4993-A4FF-65B4612CA648}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B4358E2-9F81-46E0-94C7-F57714921050}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

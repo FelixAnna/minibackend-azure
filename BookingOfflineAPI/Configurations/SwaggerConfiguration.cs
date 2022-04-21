@@ -31,7 +31,7 @@ namespace BookingOfflineApp.Web.Configurations
                                 Id = "Bearer"
                             }
                         },
-                        new string[] { }
+                        System.Array.Empty<string>()
 
                     }
                 });

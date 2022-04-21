@@ -48,10 +48,12 @@ namespace BookingOfflineApp.Web
 
             if (string.Equals(Configuration.GetValue<string>("Migration"), "on", StringComparison.OrdinalIgnoreCase))
             {
-                services.BuildServiceProvider().GetService<BODBContext>().Database.Migrate();
+                services.BuildServiceProvider()
+                    .GetService<BODBContext>().Database
+                    .Migrate();
             }
         }
-        private void EnsureLoadConfig()
+        private static void EnsureLoadConfig()
         {
             string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
             var configBuilder = new ConfigurationBuilder();
