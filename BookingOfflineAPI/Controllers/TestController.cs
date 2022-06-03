@@ -52,5 +52,12 @@ namespace BookingOfflineApp.Web.Controllers
         {
             return Ok(new { State = "succeed" });
         }
+
+        [HttpGet("version")]
+        [AllowAnonymous]
+        public IActionResult Version()
+        {
+            return Ok(new { State = "220603" });
+        }
     }
 }
