@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookingOfflineApp.Entities
+﻿namespace BookingOfflineApp.Entities
 {
     public enum OrderStatus
     {
-        New=1,
-        Locked=2,
-        Deleted=255
+        New = 1,
+        Locked = 2,
+        Deleted = 255
     }
 }

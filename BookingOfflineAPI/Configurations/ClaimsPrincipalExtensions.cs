@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 
 namespace BookingOfflineApp.Web.Configurations
 {
@@ -10,7 +6,7 @@ namespace BookingOfflineApp.Web.Configurations
     {
         public static bool IsAlipayUser(this ClaimsPrincipal claims)
         {
-            if(claims.FindFirst("bf:alibabaUserId")!=null && !string.IsNullOrEmpty(claims.FindFirstValue("bf:alibabaUserId")))
+            if (claims.FindFirst("bf:alibabaUserId") != null && !string.IsNullOrEmpty(claims.FindFirstValue("bf:alibabaUserId")))
             {
                 return true;
             }

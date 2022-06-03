@@ -26,19 +26,19 @@ namespace BookingOfflineApp.Services
             var user = _userRepo.FindById(userId);
             return new AlipayUserModel()
             {
-                Id=user.Id,
-                NickName=user.AlipayName,
+                Id = user.Id,
+                NickName = user.AlipayName,
                 AvatarUrl = user.AlipayPhoto,
-                AlibabaUserId =user.AlibabaUserId,
-                AlipayUserId=user.AlipayUserId,
-                CreatedAt=user.CreatedAt
+                AlibabaUserId = user.AlibabaUserId,
+                AlipayUserId = user.AlipayUserId,
+                CreatedAt = user.CreatedAt
             };
         }
 
         public async Task<bool> UpdateAlipayUserAsync(string userId, string nickName, string photo)
         {
             var user = _userRepo.FindById(userId);
-            if(user == null)
+            if (user == null)
             {
                 _logger.LogError($"Alipay User {userId} not exists.");
                 return false;

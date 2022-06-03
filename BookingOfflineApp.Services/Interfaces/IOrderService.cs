@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BookingOfflineApp.Services.Models;
+using System;
 using System.Threading.Tasks;
-using BookingOfflineApp.Entities;
-using BookingOfflineApp.Services.Models;
 
 namespace BookingOfflineApp.Services.Interfaces
 {
@@ -10,10 +8,10 @@ namespace BookingOfflineApp.Services.Interfaces
     {
         OrderResultModel CreateOrder<T>(string userId, OrderModel order);
         OrderResultModel GetOrder<T>(int orderId);
-        OrderCollectionResultModel GetOrders<T>(string userId, 
-            DateTime? startDate, 
-            DateTime? endDate, 
-            int page = 1, 
+        OrderCollectionResultModel GetOrders<T>(string userId,
+            DateTime? startDate,
+            DateTime? endDate,
+            int page = 1,
             int size = 10);
         bool RemoveOrder(int orderId, string userId);
         Task<bool> UnlockOrderAsync(int orderId, string userId);

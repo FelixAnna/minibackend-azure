@@ -1,13 +1,11 @@
 ﻿using BookingOfflineApp.Entities;
 using BookingOfflineApp.Repositories.Interfaces;
-using BookingOfflineApp.Services;
 using BookingOfflineApp.Services.Models;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BookingOfflineApp.Services.Tests
 {

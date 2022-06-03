@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BookingOfflineApp.Services.Models
 {
@@ -48,11 +47,11 @@ namespace BookingOfflineApp.Services.Models
                 OrderId = order.OrderId,
                 State = order.State,
                 TotalItems = order.OrderItems?.Count ?? 0,
-                TotalCost = order.OrderItems?.Sum(x=>x.Price) ?? 0,
+                TotalCost = order.OrderItems?.Sum(x => x.Price) ?? 0,
                 CreatedAt = order.CreatedAt.ToUniversalTime(),
                 OwnerId = order.CreatedBy,
-                OwnerName = wechatUser?.NickName??alipayUser?.AlipayName,
-                OwnerAvatar= wechatUser?.AvatarUrl??alipayUser?.AlipayPhoto
+                OwnerName = wechatUser?.NickName ?? alipayUser?.AlipayName,
+                OwnerAvatar = wechatUser?.AvatarUrl ?? alipayUser?.AlipayPhoto
             };
         }
 

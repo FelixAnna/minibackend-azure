@@ -51,7 +51,7 @@ namespace BookingOfflineApp.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("{orderId}")]
-        public async Task<ActionResult> UpdateOrder([FromRoute]int orderId, [FromBody] OrderModel model)
+        public async Task<ActionResult> UpdateOrder([FromRoute] int orderId, [FromBody] OrderModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             OrderResultModel order;
@@ -126,7 +126,7 @@ namespace BookingOfflineApp.Web.Controllers
         /// <param name="orderId"></param>
         /// <returns></returns>
         [HttpGet("{orderId}")]
-        public ActionResult GetOrder([FromRoute]int orderId)
+        public ActionResult GetOrder([FromRoute] int orderId)
         {
             OrderResultModel order;
             if (User.IsAlipayUser())

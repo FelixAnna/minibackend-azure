@@ -11,7 +11,7 @@ namespace BookingOfflineApp.Repositories.SqlServer
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<OrderItemOption> OrderItemOptions { get; set; }
 
-        public BODBContext(DbContextOptions<BODBContext> options) :base(options)
+        public BODBContext(DbContextOptions<BODBContext> options) : base(options)
         {
         }
 

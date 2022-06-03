@@ -86,7 +86,7 @@ namespace BookingOfflineApp.Services
             relatedUserIds.Add(order.CreatedBy);
             if (relatedUserIds.Any())
             {
-                var alipayUsers = _userRepository.FindAll(relatedUserIds.ToArray()).ToList(); 
+                var alipayUsers = _userRepository.FindAll(relatedUserIds.ToArray()).ToList();
                 var wechatUsers = _weUserRepository.FindAll(relatedUserIds.ToArray()).ToList();
                 result = OrderResultModel.FromOrder(order, wechatUsers.ToArray(), alipayUsers.ToArray());
 

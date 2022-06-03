@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using BookingOfflineApp.Entities;
+using System.Linq;
 using System.Threading.Tasks;
-using BookingOfflineApp.Entities;
 
 namespace BookingOfflineApp.Repositories.Interfaces
 {

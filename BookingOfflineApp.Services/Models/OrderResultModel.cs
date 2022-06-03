@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BookingOfflineApp.Services.Models
 {
@@ -20,14 +19,14 @@ namespace BookingOfflineApp.Services.Models
         public string CreatedBy { get; set; }
         public string OwnerName { get; set; }
 
-        public static OrderResultModel FromOrder(Order order, WechatUser[] wechatUsers,  AlipayUser[] alipayUsers)
+        public static OrderResultModel FromOrder(Order order, WechatUser[] wechatUsers, AlipayUser[] alipayUsers)
         {
             var result = new OrderResultModel()
             {
                 OrderId = order.OrderId,
                 Options = JsonConvert.DeserializeObject<IList<OrderOptionModel>>(order.Options),
                 State = order.State,
-       
+
                 CreatedAt = order.CreatedAt.ToUniversalTime(),
                 CreatedBy = order.CreatedBy,
             };
@@ -53,9 +52,9 @@ namespace BookingOfflineApp.Services.Models
             var result = new OrderResultModel()
             {
                 OrderId = order.OrderId,
-                Options= JsonConvert.DeserializeObject<IList<OrderOptionModel>>(order.Options),
+                Options = JsonConvert.DeserializeObject<IList<OrderOptionModel>>(order.Options),
                 State = order.State,
-                ProductList = order.OrderItems?.Select(x => OrderItemResultModel.FromOrderItem(x, users)).OrderByDescending(x=>x.CreatedAt).ToList() ?? new List<OrderItemResultModel>(),
+                ProductList = order.OrderItems?.Select(x => OrderItemResultModel.FromOrderItem(x, users)).OrderByDescending(x => x.CreatedAt).ToList() ?? new List<OrderItemResultModel>(),
                 CreatedAt = order.CreatedAt.ToUniversalTime(),
                 CreatedBy = order.CreatedBy,
                 OwnerName = users.FirstOrDefault(x => x.Id == order.CreatedBy)?.AlipayName
@@ -98,7 +97,7 @@ namespace BookingOfflineApp.Services.Models
         public string OwnerId { get; set; }
         public string OwnerAvatar { get; set; }
         public string OwnerName { get; set; }
-        
+
 
         public static OrderItemResultModel FromOrderItem(OrderItem iten, WechatUser[] wechatUsers, AlipayUser[] alipayUsers)
         {
@@ -111,11 +110,11 @@ namespace BookingOfflineApp.Services.Models
                 Options = iten.OrderItemOptions?.Select(OrderItemOptionsResultModel.FromOrderItenOption).ToList() ?? new List<OrderItemOptionsResultModel>(),
                 CreatedAt = iten.CreatedAt.ToUniversalTime(),
                 OwnerId = iten.CreatedBy,
-                
+
             };
 
             var wechatOwner = wechatUsers.FirstOrDefault(x => x.Id == iten.CreatedBy);
-            if(null != wechatOwner)
+            if (null != wechatOwner)
             {
                 result.OwnerAvatar = wechatOwner.AvatarUrl;
                 result.OwnerName = wechatOwner.NickName;
@@ -126,8 +125,8 @@ namespace BookingOfflineApp.Services.Models
                 result.OwnerAvatar = alipayOwner?.AlipayPhoto;
                 result.OwnerName = alipayOwner?.AlipayName;
             }
-            
-            
+
+
 
             return result;
         }

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using BookingOfflineApp.Entities;
+﻿using BookingOfflineApp.Entities;
+using System.Linq;
 
 namespace BookingOfflineApp.Repositories.Interfaces
 {

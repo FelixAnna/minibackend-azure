@@ -20,7 +20,7 @@ namespace BookingOfflineApp.Services
         private readonly IWechatService _wechatService;
         private readonly IUserRepository<WechatUser> _wechatUserRepo;
 
-        public LoginService(ITokenGeneratorService tokenService, 
+        public LoginService(ITokenGeneratorService tokenService,
             IAlipayService alipayService,
             IUserRepository<AlipayUser> userRepo,
             IWechatService wechatService,
@@ -73,7 +73,7 @@ namespace BookingOfflineApp.Services
             var response = await _wechatService.GetUserIdByCode(code);
             //retry
             int retryCount = 0;
-            while(response.ErrorCode <0 && retryCount++<3)
+            while (response.ErrorCode < 0 && retryCount++ < 3)
             {
                 response = await _wechatService.GetUserIdByCode(code);
             }

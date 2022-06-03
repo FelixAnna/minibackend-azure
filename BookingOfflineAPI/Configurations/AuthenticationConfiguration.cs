@@ -12,7 +12,8 @@ namespace BookingOfflineApp.Web.Configurations
         public static void AddJwtAutentication(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

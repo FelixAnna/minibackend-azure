@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace BookingOfflineApp.Repositories.Interfaces
+﻿namespace BookingOfflineApp.Repositories.Interfaces
 {
     public interface IRepository<TEntity, TKey>
     {
