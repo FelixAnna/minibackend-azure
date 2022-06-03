@@ -10,98 +10,97 @@ using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace BookingOfflineApp.Web
+namespace BookingOfflineApp.Web;
+
+public class Startup
 {
-    public class Startup
+    private static IConfiguration Configuration { set; get; }
+    private static IConfigurationRefresher ConfigurationRefresher { set; get; }
+
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
     {
-        private static IConfiguration Configuration { set; get; }
-        private static IConfigurationRefresher ConfigurationRefresher { set; get; }
+        EnsureLoadConfig();
 
+        services.AddControllers()
+            .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        services.AddDbContext<BODBContext>(options =>
+            options.UseSqlServer(Configuration.GetValue<string>("BODatabase"), sqlServerOptionsAction: sqlOptions =>
+            {
+                sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 10,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
+            }));
+
+        services.AddSwaggerUI();
+        services.AddJwtAutentication(Configuration);
+
+        services.AddBSSevices();
+        services.AddDASevices();
+        services.AddCommonSevices(Configuration);
+
+        services.AddSingleton(Configuration);
+
+        services.AddHealthChecks();
+
+        if (string.Equals(Configuration.GetValue<string>("Migration"), "on", StringComparison.OrdinalIgnoreCase))
         {
-            EnsureLoadConfig();
-
-            services.AddControllers()
-                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            services.AddDbContext<BODBContext>(options =>
-                options.UseSqlServer(Configuration.GetValue<string>("BODatabase"), sqlServerOptionsAction: sqlOptions =>
+            services.BuildServiceProvider()
+                .GetService<BODBContext>().Database
+                .Migrate();
+        }
+    }
+    private static void EnsureLoadConfig()
+    {
+        string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+        var configBuilder = new ConfigurationBuilder();
+        configBuilder.AddAzureAppConfiguration(options =>
+        {
+            options.Connect(connectionString)
+                .Select(KeyFilter.Any, LabelFilter.Null)
+                .Select(KeyFilter.Any, "prod")
+                .ConfigureKeyVault(kv =>
                 {
-                    sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 10,
-                    maxRetryDelay: TimeSpan.FromSeconds(30),
-                    errorNumbersToAdd: null);
-                }));
+                    kv.SetCredential(new DefaultAzureCredential());
+                })
+                            //stop refresher if we use free tier
+                            /*.ConfigureRefresh(refreshOptions =>
+                                refreshOptions.Register("TestApp:Settings:Message")
+                                            .SetCacheExpiration(TimeSpan.FromSeconds(60))
+                            )*/;
+            ConfigurationRefresher = options.GetRefresher();
+        });
 
-            services.AddSwaggerUI();
-            services.AddJwtAutentication(Configuration);
+        Configuration = configBuilder.Build();
+    }
 
-            services.AddBSSevices();
-            services.AddDASevices();
-            services.AddCommonSevices(Configuration);
-
-            services.AddSingleton(Configuration);
-
-            services.AddHealthChecks();
-
-            if (string.Equals(Configuration.GetValue<string>("Migration"), "on", StringComparison.OrdinalIgnoreCase))
-            {
-                services.BuildServiceProvider()
-                    .GetService<BODBContext>().Database
-                    .Migrate();
-            }
-        }
-        private static void EnsureLoadConfig()
-        {
-            string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
-            var configBuilder = new ConfigurationBuilder();
-            configBuilder.AddAzureAppConfiguration(options =>
-            {
-                options.Connect(connectionString)
-                    .Select(KeyFilter.Any, LabelFilter.Null)
-                    .Select(KeyFilter.Any, "prod")
-                    .ConfigureKeyVault(kv =>
-                    {
-                        kv.SetCredential(new DefaultAzureCredential());
-                    })
-                             //stop refresher if we use free tier
-                             /*.ConfigureRefresh(refreshOptions =>
-                                  refreshOptions.Register("TestApp:Settings:Message")
-                                                .SetCacheExpiration(TimeSpan.FromSeconds(60))
-                              )*/;
-                ConfigurationRefresher = options.GetRefresher();
-            });
-
-            Configuration = configBuilder.Build();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseMiddleware<GlobalExceptionHandler>();
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseMiddleware<GlobalExceptionHandler>();
 #if DEBUG
-            app.UseMiddleware<FakeTokenMiddleware>();
+        app.UseMiddleware<FakeTokenMiddleware>();
 #endif
-            app.UseSwaggerUI();
+        app.UseSwaggerUI();
 
-            //app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
-            app.UseRouting();
+        app.UseRouting();
 
-            app.UseCors(option => option
-               .AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader());
-            //app.UseMiddleware<CustomMiddleware>();
-            app.UseJwtAuthenticaton();
+        app.UseCors(option => option
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+        //app.UseMiddleware<CustomMiddleware>();
+        app.UseJwtAuthenticaton();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHealthChecks("healthcheck");
-                endpoints.MapControllers();
-            });
-        }
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapHealthChecks("healthcheck");
+            endpoints.MapControllers();
+        });
     }
 }
